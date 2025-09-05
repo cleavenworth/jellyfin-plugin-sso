@@ -108,7 +108,7 @@ public class SSOController : ControllerBase
                 ClientId = config.OidClientId?.Trim(),
                 ClientSecret = config.OidSecret?.Trim(),
                 RedirectUri = GetRequestBase(config.SchemeOverride, config.PortOverride) + $"/sso/OID/{(Request.Path.Value.Contains("/start/", StringComparison.InvariantCultureIgnoreCase) ? "redirect" : "r")}/" + provider,
-                Scope = scopes,
+                Scope = string.Join(" ", scopes),
                 DisablePushedAuthorization = config.DisablePushedAuthorization,
             };
             var oidEndpointUri = new Uri(config.OidEndpoint?.Trim());
@@ -333,7 +333,7 @@ public class SSOController : ControllerBase
                 ClientId = config.OidClientId?.Trim(),
                 ClientSecret = config.OidSecret?.Trim(),
                 RedirectUri = redirectUri,
-                Scope = config.OidScopes,
+                Scope = string.Join(" ", config.OidScopes),
                 DisablePushedAuthorization = config.DisablePushedAuthorization,
             };
             var oidEndpointUri = new Uri(config.OidEndpoint?.Trim());
